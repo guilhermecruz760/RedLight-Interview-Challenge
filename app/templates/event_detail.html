@@ -1,0 +1,144 @@
+{% extends 'header.html' %}
+
+{% block title %}{{ event.title }} – Redlight{% endblock %}
+
+{% block content %}
+<h2>{{ event.title }}</h2>
+<p><strong>Sport:</strong> {{ event.sport_type }}</p>
+<p><strong>Description:</strong> {{ event.description }}</p>
+<p><strong>Location:</strong> {{ event.location }}</p>
+<p><strong>Date & Time:</strong> {{ event.datetime }}</p>
+<p><strong>Status:</strong> {{ event.status }}</p>
+<p><strong>Max Participants:</strong> {{ event.max_participants }}</p>
+<p><strong>Registered Participants:</strong> {{ event.participants | length }} / {{ event.max_participants }}</p>
+
+<hr>
+<h4 class="mt-4">Participants</h4>
+{% if event.participants %}
+    <ul class="list-group">
+        {% for user in event.participants %}
+            <li class="list-group-item">
+                {{ user.name }} ({{ user.email }})
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p class="text-muted">No participants yet.</p>
+{% endif %}
+
+{% if current_user == event.creator or current_user.role == 'admin' %}
+    <div class="event-detail-page d-flex gap-2 justify-content-start flex-wrap">
+        <a href="{{ url_for('events.edit_event', event_id=event.id) }}" class="btn redlight-btn">Edit Event</a>
+        <form action="{{ url_for('events.delete_event', event_id=event.id) }}" method="POST" style="display:inline;">
+            <button type="submit" class="btn redlight-btn">Delete</button>
+        </form>
+    </div>
+{% endif %}
+
+{% if current_user not in event.participants %}
+    <div class="event-detail-page">
+        <form method="POST" action="{{ url_for('events.register_for_event', event_id=event.id)}}">
+            <button type="submit" class="btn redlight-btn mt-3">Register</button>
+        </form>
+    </div>
+{% else %}
+    <p class="mt-3 text-success">You are registered for this event.</p>
+{% endif %}
+
+{% if current_user == event.creator or current_user.role == 'admin' %}
+    <div class="event-detail-page">
+        <form method="POST" action="{{ url_for('events.add_participant', event_id=event.id) }}" class="mt-4">
+            <label for="user_id">Add participant:</label>
+            <select name="user_id" class="form-select my-2" required>
+                {% for user in selectable_users %}
+                    {% if user not in event.participants %}
+                        <option value="{{ user.id }}">{{ user.name }} ({{ user.email }})</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn redlight-btn">Add</button>
+        </form>
+        
+        <form method="POST" action="{{ url_for('events.update_status', event_id=event.id) }}" class="mt-4" onsubmit="return confirmCancel()">
+            <label for="status">Update Status:</label>
+            <select id="statusSelect" name="status" class="form-select my-2">
+                {% for option in ['planned', 'completed', 'cancelled'] %}
+                    <option value="{{ option }}" {% if event.status == option %}selected{% endif %}>{{ option.capitalize() }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn redlight-btn">Update Status</button>
+        </form>
+    </div>    
+{% endif %}
+<div class="event-detail-page">
+    <a href="{{ url_for('events.export_event', event_id=event.id) }}" class="btn redlight-btn mt-2">Export to Calendar</a>
+</div>
+
+<div class="event-detail-page">
+    <a href="{{ url_for('events.list_events') }}" class="btn redlight-btn mt-3">← Back</a>
+</div>
+
+{% if event.photos %}
+<hr>
+<h4 class="mt-5">Event Photos</h4>
+<div class="swiper mySwiper mt-3">
+    <div class="swiper-wrapper">
+        {% for photo in event.photos.split(',') %}
+            <div class="swiper-slide">
+                <img src="{{ url_for('static', filename='uploads/' ~ photo.strip()) }}"
+                     class="carousel-image">
+            </div>
+        {% endfor %}
+    </div>
+    <div class="swiper-pagination"></div>
+</div>
+{% endif %}
+
+<style>
+.carousel-image {
+    width: 25%;
+    height: auto;
+    object-fit: cover;
+}
+</style>
+
+<!-- SwiperJS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+<script>
+function confirmCancel() {
+    const status = document.getElementById("statusSelect").value;
+    if (status === "cancelled") {
+        return confirm("Are you sure you want to cancel this event?");
+    }
+    return true;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+        if (document.querySelectorAll('.swiper-slide').length > 0) {
+            new Swiper(".mySwiper", {
+                effect: "coverflow",
+                grabCursor: true,
+                centeredSlides: true,
+                slidesPerView: "auto",
+                coverflowEffect: {
+                    rotate: 0,
+                    stretch: 0,
+                    depth: 100,
+                    modifier: 2,
+                    slideShadows: true
+                },
+                spaceBetween: 60,
+                loop: false,
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true
+                }
+            });
+        }
+    }, 50);
+});
+</script>
+{% endblock %}

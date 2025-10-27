@@ -1,0 +1,151 @@
+{% extends 'header.html' %}
+
+{% block title %}Edit Event – Redlight{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Edit Event</h2>
+<form method="POST" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label for="title">Title</label>
+        <input type="text" name="title" id="title" value="{{ event.title }}" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="description">Description</label>
+        <textarea name="description" id="description" class="form-control">{{ event.description }}</textarea>
+    </div>
+    <div class="mb-3">
+        <label for="location">Location</label>
+        <input type="text" name="location" id="location" value="{{ event.location }}" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="sport_type">Sport Type</label>
+        <input type="text" name="sport_type" id="sport_type" value="{{ event.sport_type }}" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="max_participants">Max Participants</label>
+        <input type="number" name="max_participants" id="max_participants" value="{{ event.max_participants }}" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="datetime">Date and Time</label>
+        <input type="datetime-local" name="datetime" id="datetime"
+               value="{{ event.datetime.strftime('%Y-%m-%dT%H:%M') }}"
+               class="form-control" required>
+    </div>
+
+    <div class="mb-4">
+        <label for="photos" class="block text-sm font-medium text-gray-700 mb-2">Add Photos</label>
+        <div class="flex items-start space-x-4">
+            <div id="photo-dropzone"
+                 class="flex items-center justify-center w-32 h-32 bg-white hover:bg-gray-100 text-gray-600 border-2 border-dashed border-gray-400 rounded-lg cursor-pointer transition duration-200 text-sm font-medium text-center shadow">
+                <span>Add<br>Photos</span>
+                <input type="file" id="photos" name="photos" accept="image/*" multiple hidden>
+            </div>
+        </div>
+
+        <div class="swiper mySwiper mt-4">
+            <div class="swiper-wrapper" id="photo-preview">
+                {% if event.photos %}
+                    {% for photo in event.photos.split(',') %}
+                        <div class="swiper-slide">
+                            <img src="{{ url_for('static', filename='uploads/' ~ photo.strip()) }}"
+                                 class="carousel-image">
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+
+    <button type="submit" class="btn redlight-btn">Save Changes</button>
+</form>
+
+<a href="{{ url_for('events.event_detail', event_id=event.id) }}" class="btn btn-secondary mt-3">← Back</a>
+
+<!-- SwiperJS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+<script>
+    const photoInput = document.getElementById('photos');
+    const dropzone = document.getElementById('photo-dropzone');
+    const previewContainer = document.getElementById('photo-preview');
+
+    let allFiles = [];
+
+    dropzone.addEventListener('click', () => {
+        photoInput.click();
+    });
+
+    photoInput.addEventListener('change', function (e) {
+        const newFiles = Array.from(e.target.files);
+        allFiles = allFiles.concat(newFiles);
+
+        const dataTransfer = new DataTransfer();
+        allFiles.forEach(file => dataTransfer.items.add(file));
+        photoInput.files = dataTransfer.files;
+
+        // Preserve existing preview (do NOT clear)
+        allFiles.forEach(file => {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                const slide = document.createElement('div');
+                slide.className = 'swiper-slide';
+
+                const img = document.createElement('img');
+                img.src = event.target.result;
+                img.className = 'carousel-image';
+
+                slide.appendChild(img);
+                previewContainer.appendChild(slide);
+            };
+            reader.readAsDataURL(file);
+        });
+
+        if (window.swiperInstance) window.swiperInstance.destroy(true, true);
+        setTimeout(() => {
+            window.swiperInstance = new Swiper(".mySwiper", {
+                effect: "coverflow",
+                grabCursor: true,
+                centeredSlides: true,
+                slidesPerView: "auto",
+                coverflowEffect: {
+                    rotate: 0,
+                    stretch: 0,
+                    depth: 100,
+                    modifier: 2,
+                    slideShadows: true
+                },
+                spaceBetween: 60,
+                loop: false,
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true
+                }
+            });
+        }, 50);
+    });
+
+    // Swiper for existing photos
+    window.swiperInstance = new Swiper(".mySwiper", {
+        effect: "coverflow",
+        grabCursor: true,
+        centeredSlides: true,
+        slidesPerView: "auto",
+        coverflowEffect: {
+            rotate: 0,
+            stretch: 0,
+            depth: 100,
+            modifier: 2,
+            slideShadows: true
+        },
+        spaceBetween: 60,
+        loop: false,
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true
+        }
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,100 @@
+2025-07-07 16:07:48,580 ERROR: Exception on /delete_account [POST] [in /Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/flask/app.py:875]
+Traceback (most recent call last):
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1932, in _exec_single_context
+    self.dialect.do_executemany(
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 940, in do_executemany
+    cursor.executemany(statement, parameters)
+sqlite3.IntegrityError: NOT NULL constraint failed: event.user_id
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+  File "/Users/gui/Desktop/redlight-challenge/app/routes/auth.py", line 119, in delete_account
+    db.session.commit()
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/sqlalchemy/orm/scoping.py", line 599, in commit
+    return self._proxied.commit()
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 2032, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 1313, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 1288, in _prepare_impl
+    self.session.flush()
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 4345, in flush
+    self._flush(objects)
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 4481, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 4441, in _flush
+    flush_context.execute()
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/sqlalchemy/orm/persistence.py", line 85, in save_obj
+    _emit_update_statements(
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/sqlalchemy/orm/persistence.py", line 912, in _emit_update_statements
+    c = connection.execute(
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1415, in execute
+    return meth(
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/sqlalchemy/sql/elements.py", line 523, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1637, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1842, in _execute_context
+    return self._exec_single_context(
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1982, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 2351, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1932, in _exec_single_context
+    self.dialect.do_executemany(
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 940, in do_executemany
+    cursor.executemany(statement, parameters)
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) NOT NULL constraint failed: event.user_id
+[SQL: UPDATE event SET user_id=? WHERE event.id = ?]
+[parameters: [(None, 1), (None, 2), (None, 3)]]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-07-07 16:17:13,362 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 16:17:23,045 INFO: User logged in sucessfully: gui@gmail.com [in /Users/gui/Desktop/redlight-challenge/app/routes/auth.py:75]
+2025-07-07 16:17:26,236 ERROR: Exception on /profile [GET] [in /Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/flask/app.py:875]
+Traceback (most recent call last):
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+  File "/Users/gui/Desktop/redlight-challenge/app/routes/auth.py", line 113, in profile
+    return render_template('profile.html', user=current_user, events_to_delete=event_titles)
+UnboundLocalError: local variable 'event_titles' referenced before assignment
+2025-07-07 16:19:31,672 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 16:19:46,393 INFO: Profile deleted successfully for user: gui@gmail.com [in /Users/gui/Desktop/redlight-challenge/app/routes/auth.py:127]
+2025-07-07 16:20:05,346 INFO: User logged in sucessfully: gui@gmail.com [in /Users/gui/Desktop/redlight-challenge/app/routes/auth.py:75]
+2025-07-07 16:29:41,028 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 16:31:02,963 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 16:32:30,922 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 16:33:10,162 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 16:33:20,605 INFO: User logged in sucessfully: gui@gmail.com [in /Users/gui/Desktop/redlight-challenge/app/routes/auth.py:77]
+2025-07-07 16:37:49,735 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 16:37:58,642 INFO: Profile updated successfully for user: gui@gmail.com [in /Users/gui/Desktop/redlight-challenge/app/routes/auth.py:126]

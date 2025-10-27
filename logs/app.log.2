@@ -1,0 +1,99 @@
+2025-07-07 16:37:58,651 ERROR: Exception on /profile [GET] [in /Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/flask/app.py:875]
+Traceback (most recent call last):
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+  File "/Users/gui/Desktop/redlight-challenge/app/routes/auth.py", line 131, in profile
+    return render_template('profile.html', user=current_user, events_to_delete=event_titles)
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/gui/Desktop/redlight-challenge/app/templates/profile.html", line 1, in top-level template code
+    {% extends 'header.html' %}
+  File "/Users/gui/Desktop/redlight-challenge/app/templates/header.html", line 30, in top-level template code
+    {% block content %}{% endblock %}
+  File "/Users/gui/Desktop/redlight-challenge/app/templates/profile.html", line 17, in block 'content'
+    <img src="{{ url_for('static', filename='uploads/' + user.photo) }}?t={{ time.time() }}" alt="Profile Picture">
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/jinja2/environment.py", line 490, in getattr
+    return getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'time' is undefined
+2025-07-07 16:39:04,774 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 16:39:21,354 INFO: User logged in sucessfully: gui@gmail.com [in /Users/gui/Desktop/redlight-challenge/app/routes/auth.py:77]
+2025-07-07 16:39:30,559 INFO: Profile updated successfully for user: gui@gmail.com [in /Users/gui/Desktop/redlight-challenge/app/routes/auth.py:126]
+2025-07-07 16:40:55,663 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 16:41:16,917 INFO: Profile updated successfully for user: gui@gmail.com [in /Users/gui/Desktop/redlight-challenge/app/routes/auth.py:126]
+2025-07-07 16:42:40,966 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 16:42:56,521 INFO: User logged in sucessfully: gui@gmail.com [in /Users/gui/Desktop/redlight-challenge/app/routes/auth.py:77]
+2025-07-07 16:50:43,781 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 16:52:12,524 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 16:53:05,319 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 16:53:51,821 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 16:54:48,077 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 16:55:13,546 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 16:57:11,998 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 16:59:09,301 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 17:01:50,732 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 17:03:02,885 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 17:05:10,631 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 17:06:55,515 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 17:08:45,347 INFO: User logged out: gui@gmail.com [in /Users/gui/Desktop/redlight-challenge/app/routes/auth.py:85]
+2025-07-07 17:32:02,115 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 17:32:05,474 ERROR: Exception on /register [GET] [in /Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/flask/app.py:875]
+Traceback (most recent call last):
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/gui/Desktop/redlight-challenge/venv/lib/python3.9/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/Users/gui/Desktop/redlight-challenge/app/routes/auth.py", line 33, in register
+    for img in os.listdir(carousel_path)
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/gui/Desktop/redlight-challenge/app/static/static/website/caroussel'
+2025-07-07 17:32:33,550 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 17:34:27,055 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 17:37:44,204 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 17:43:14,334 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 17:44:48,027 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 17:45:05,800 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 17:47:37,597 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 17:48:53,507 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 17:50:31,044 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 17:51:04,790 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 17:52:26,555 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 17:52:48,776 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 17:54:08,858 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 17:54:25,611 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 17:57:42,813 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 17:57:58,059 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 17:58:43,684 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 17:59:00,322 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 18:00:01,847 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 18:00:26,472 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 18:00:55,132 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 18:02:25,648 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 18:03:24,512 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 18:03:54,890 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 18:05:14,116 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 18:05:30,348 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 18:05:55,200 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 18:07:05,047 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 18:07:16,027 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 18:07:31,559 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 18:07:41,529 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 18:10:24,237 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 18:10:33,907 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]
+2025-07-07 18:10:45,549 INFO: Redlight App startup [in /Users/gui/Desktop/redlight-challenge/app/__init__.py:45]

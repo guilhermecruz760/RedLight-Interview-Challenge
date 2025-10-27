@@ -1,0 +1,89 @@
+{% extends 'header.html' %}
+
+{% block title %}Create Event – Redlight{% endblock %}
+
+{% block content %}
+<head>
+    <title>Profile – Redlight</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <!-- PROFILE EDIT FORM -->
+        <form method="POST" enctype="multipart/form-data">
+            <label for="photo-upload" class="profile-pic-wrapper mb-4">
+                {% if user.photo %}
+                    <img src="{{ url_for('static', filename='uploads/' + user.photo) }}?t={{ time.time() }}" alt="Profile Picture">
+                {% else %}
+                    <div class="placeholder" style="background-color: white;"></div>
+                {% endif %}
+                <div class="profile-pic-overlay">Change your profile picture</div>
+                <input id="photo-upload" type="file" name="photo" accept="image/*">
+            </label>
+
+            <h2 class="text-center">Edit Your Profile</h2>
+            <div class="mb-3">
+                <label>Name</label>
+                <input type="text" name="name" class="form-control" value="{{ user.name }}" required>
+            </div>
+            <div class="mb-3">
+                <label>Email</label>
+                <input type="email" name="email" class="form-control" value="{{ user.email }}" readonly>
+            </div>
+            <div class="mb-3">
+                <label>Age (optional)</label>
+                <input type="number" name="age" class="form-control" value="{{ user.age or '' }}">
+            </div>
+            <div class="mb-3">
+                <label for="role">Role</label>
+                <select name="role" class="form-control">
+                    <option value="participant" {% if user.role == 'participant' %}selected{% endif %}>participant</option>
+                    <option value="admin" {% if user.role == 'admin' %}selected{% endif %}>admin</option>
+                </select>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn savechanges-btn">Save Changes</button>
+
+                <!-- Trigger delete confirmation -->
+                <a href="#" class="btn delete-btn" onclick="confirmDelete()">Delete Account</a>
+            </div>
+        </form>
+
+        <!-- DELETE ACCOUNT FORM -->
+        <form method="POST" id="delete-form" action="{{ url_for('auth.delete_account') }}"></form>
+
+        <!-- BACK TO EVENTS BUTTON -->
+        <div class="mt-4">
+            <a href="{{ url_for('events.list_events') }}" class="btn back-to-events-btn">Back to Events</a>
+        </div>
+    </div>
+
+    <!-- Dynamic delete confirmation script -->
+    <script>
+        //@ts-nocheck
+        function confirmDelete() {
+            const events = {{ events_to_delete|tojson }};
+            let message = "Do you really want to delete your account? All the following events will be deleted:\n\n";
+            if (events.length === 0) {
+                message += "No events will be deleted.";
+            } else {
+                message += events.join("\n");
+            }
+
+            if (confirm(message)) {
+                document.getElementById("delete-form").submit();
+            }
+        }
+        // Live preview profile picture
+        document.getElementById('photo-upload').addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (file) {
+                const preview = document.querySelector('.profile-pic-wrapper img');
+                preview.src = URL.createObjectURL(file);
+            }
+    });
+    </script>
+</body>
+{% endblock %}

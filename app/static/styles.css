@@ -1,0 +1,440 @@
+/* Header Styling */
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.header-profile-img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-left: 8px;
+}
+
+/* Base Styling */
+body {
+    background-color: #ee2444; /* Redlight red */
+    color: white;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Headings and text */
+h2, h4, label {
+    color: white;
+}
+
+/* Label color inside cards (login/register) */
+.card label {
+    color: #333;
+}
+
+/* Links and Buttons */
+a, .btn {
+    color: white;
+    text-decoration: none;
+}
+
+.redlight-btn {
+    background-color: white;
+    color: #ee2444;
+    border: none;
+    margin-top: 10px;
+}
+
+.redlight-btn:hover {
+    background-color: #7C0B2B;
+    color: white;
+    border: none;
+}
+
+/* Form Controls */
+.form-control, .form-select {
+    background-color: white;
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+/* Event List Items */
+.list-group-item {
+    background-color: white;
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+.list-group-item a:not(.text-danger) {
+    color: #333;
+}
+
+.list-group-item a:hover {
+    color: #ee2444;
+    text-decoration: underline;
+}
+
+/* Auth Pages */
+.card-auth {
+    background-color: white;
+    color: #333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 22rem;
+    padding: 1.5rem;
+}
+
+.card-auth h3 {
+    color: #F33;
+}
+
+.card-auth a {
+    color: #F33;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 576px) {
+    body {
+        padding: 10px;
+    }
+
+    .card-auth {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .form-control, .form-select {
+        font-size: 1rem;
+    }
+
+    .btn, .redlight-btn {
+        font-size: 1rem;
+    }
+}
+
+/* Auth Carousel Horizontal */
+.auth-carousel {
+  width: 100%;
+  max-width: 500px;
+  height: 300px;
+  overflow: hidden;
+  margin-top: 100px;
+}
+
+.swiper-wrapper {
+  display: flex !important;
+}
+
+.swiper-slide {
+  flex-shrink: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Auth Container */
+.auth-container {
+    display: flex;
+    height: 100%;
+    overflow: hidden;
+}
+
+.auth-left {
+    flex: 1;
+    color: white;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+    background: linear-gradient(135deg, #e52e2e, #ff6b6b);
+    text-align: center;
+    animation: fadeInLeft 0.8s ease-out;
+    overflow: hidden;
+    max-height: 100vh;
+    box-sizing: border-box;
+}
+
+.auth-left h1, .auth-left h4 {
+    margin: 0;
+    padding: 0;
+}
+
+.auth-left p {
+    max-width: 300px;
+    margin: auto;
+}
+
+.auth-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeInRight 0.8s ease-out;
+}
+
+.auth-container .btn:hover,
+.auth-container .redlight-btn:hover {
+    background-color: #7C0B2B;
+    color: white;
+    border: none;
+}
+
+.auth-container .btn,
+.auth-container .redlight-btn {
+    background-color: #ffffff;
+    color: rgb(255, 86, 86);
+    border: #7C0B2B;
+    width: 100%;
+    display: block;
+    margin: 0 auto;
+}
+
+.auth-container .text-decoration-none{
+    background-color: #ffffff;
+    color: rgb(255, 86, 86);
+    border: #7C0B2B;
+    width: 100%;
+    display: block;
+    margin: 0 auto;
+}
+
+.auth-container .text-decoration-none:hover{
+    background-color: #7C0B2B;
+    color: white;
+    border: none;
+}
+
+
+.auth-left .welcome-title {
+    font-family: 'Raleway', sans-serif;
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.auth-left .welcome-subtitle {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+@keyframes fadeInLeft {
+    from { opacity: 0; transform: translateX(-50px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInRight {
+    from { opacity: 0; transform: translateX(50px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* Hover Tooltip for Events */
+.event-item {
+    position: relative;
+    cursor: pointer;
+}
+
+.event-item::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    background: #333;
+    color: white;
+    padding: 4px 8px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    border-radius: 4px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-5px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 10;
+}
+
+.event-item:hover::after {
+    opacity: 1;
+    transform: translateY(-10px);
+}
+
+/* Highlight full events */
+.text-danger {
+    color: #F33 !important;
+}
+
+/* Delete Account Button */
+.delete-btn, .savechanges-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    margin-top: 1rem;
+    width: 10%;
+}
+
+.delete-btn:hover, .savechanges-btn:hover {
+    background-color: #c82333;
+    color: white;
+}
+
+/* Back to events button */
+.back-to-events-btn {
+    background-color: #7C0B2B;
+    color: white;
+    border: none;
+}
+
+.back-to-events-btn:hover {
+    background-color: #d75d7d;
+    color: white;
+}
+
+/* Profile Picture Upload */
+.profile-pic-wrapper {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin: auto;
+    cursor: pointer;
+}
+
+.profile-pic-wrapper img,
+.profile-pic-wrapper .placeholder {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+}
+
+.profile-pic-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 150px;
+    height: 150px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: opacity 0.3s;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.profile-pic-wrapper:hover .profile-pic-overlay {
+    opacity: 1;
+}
+
+.profile-pic-wrapper input[type="file"] {
+    display: none;
+}
+
+/* Home Page Button Animations */
+.home-btn-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    animation: fadeInCenter 1s ease-out;
+}
+
+.home-btn-wrapper .btn {
+    font-size: 1.25rem;
+    padding: 0.75rem 1.5rem;
+    opacity: 0;
+    width: 250px;
+    text-align: center;
+}
+
+.home-btn-wrapper .btn:hover {
+    background-color: #7C0B2B;
+    color: white;
+    border: none;
+}
+
+.btn-home-left {
+    opacity: 0;
+    transform: translateX(-100px);
+    animation: slideInLeft 0.8s forwards;
+}
+
+.btn-home-right {
+    opacity: 0;
+    transform: translateX(100px);
+    animation: slideInRight 0.8s forwards;
+}
+
+.btn-home-left:nth-of-type(1) { animation-delay: 0.5s; }
+.btn-home-right:nth-of-type(2) { animation-delay: 0.7s; }
+.btn-home-left:nth-of-type(3) { animation-delay: 0.9s; }
+.btn-home-right:nth-of-type(4) { animation-delay: 1.1s; }
+
+.welcome-title {
+    font-family: 'Raleway', sans-serif;
+    font-size: 2.5rem;
+}
+
+/* Keyframes */
+@keyframes slideInLeft {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+.transparent-header {
+    background-color: transparent !important;
+    border-bottom: none;
+    box-shadow: none;
+    padding-bottom: 40px;
+}
+
+.platform-tag {
+    font-size: 0.9rem;
+    color: white;
+    vertical-align: super;
+    opacity: 0.9;
+}
+
+.user-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 4px 8px;
+}
+
+.custom-navbar {
+    background-color: transparent;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    padding: 0.75rem 2rem;
+}
+
+.header-icon {
+    height: 50px;
+}
